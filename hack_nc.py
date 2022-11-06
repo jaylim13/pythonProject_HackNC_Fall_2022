@@ -6,8 +6,9 @@ level: int = 1
 score: int = 0
 masks_collected = 0
 OBSTACLE_START = 833
-new_level = False
+new_level: bool = False
 clicker_count = 0
+game_on: bool = True
 
 # Creates screen for the game to be played
 pygame.init()
@@ -19,6 +20,7 @@ test_font = pygame.font.Font('font/small_pixel.ttf', 30)
 
 # Initializes the variable for the background and text
 landscape = pygame.image.load('graphics/landscape.jpg')
+game_over = pygame.image.load('graphics/game_over.png')
 text_surface = test_font.render('Marco vs Covid', False, 'Red')
 
 # Initializes the variable for COVID-19
@@ -36,6 +38,10 @@ virus3_x_pos = 833
 marco_surface = pygame.image.load('graphics/marco.png')
 marco_rect = marco_surface.get_rect(midbottom = (15, 200))
 marco_gravity = 0
+
+# Play button
+play_button = pygame.image.load('graphics/new_game.png')
+play_button_rect = play_button.get_rect(midbottom = (770, 60))
 
 
 # Def level function
@@ -76,7 +82,7 @@ def difficulty():
     global virus2_rect
     global virus3_rect
     if level > 0:
-        virus_rect.x = obstacle_movement(virus_surface, virus_rect.x, -2)
+        virus_rect.x = obstacle_movement(virus_surface, virus_rect.x, -3)
         screen.blit(virus_surface, virus_rect)
     if level > 1:
         virus2_rect.x = obstacle_movement(virus2_surface, virus2_rect.x, -4)
@@ -103,28 +109,29 @@ while True:
             pygame.quit()
             exit()
         # Keyboard Controls
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if marco_rect.collidepoint(event.pos):
-                marco_gravity = -14
-                clicker_count += 1
-                moving_legs()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                marco_gravity = -14
-                clicker_count += 1
-                moving_legs()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                marco_rect.x -= 20
-                clicker_count += 1
-                moving_legs()
-        if event.type == pygame. KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                marco_rect.x += 20
-                clicker_count += 1
-                moving_legs()
-        if event.type == pygame.KEYUP:
-            print('key up')
+        if game_on:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if marco_rect.collidepoint(event.pos):
+                    marco_gravity = -14
+                    clicker_count += 1
+                    moving_legs()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    marco_gravity = -14
+                    clicker_count += 1
+                    moving_legs()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    marco_rect.x -= 20
+                    clicker_count += 1
+                    moving_legs()
+            if event.type == pygame. KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    marco_rect.x += 20
+                    clicker_count += 1
+                    moving_legs()
+            if event.type == pygame.KEYUP:
+                print('key up')
 
     # Initializes the variable for the level label
     level_label = test_font.render(f"Level: {level}", False, 'Black')
@@ -150,20 +157,17 @@ while True:
     marco_gravity += 1
     marco_rect.y += marco_gravity
     if marco_rect.bottom >= 200:
-        marco_rect.bottom = 200  
-    if marco_rect.left <= 0:
-        marco_rect.left = 5
-    if marco_rect.top <= 25:
-        marco_rect.top = 25
-    
+        marco_rect.bottom = 200
 
     screen.blit(marco_surface, marco_rect)
     screen.blit(virus_surface, virus_rect)
+    screen.blit(play_button, play_button_rect)
 
     if marco_rect.colliderect(virus_rect) or marco_rect.colliderect(virus2_rect) or marco_rect.colliderect(virus3_rect):
         print('Marco -1')
         marco_surface = pygame.image.load('graphics/dead_marco.png')
         marco_gravity += 20
+        game_on = False
     else:
         print('Safe')
 
@@ -173,3 +177,20 @@ while True:
 
     pygame.display.update()
     clock.tick(60)
+
+    if not game_on:
+        landscape = game_over
+        screen.blit(landscape, (0, 0))
+        text_surface = test_font.render('GAME OVER', False, 'Red')
+        screen.blit(play_button, play_button_rect)
+        mouse_pos = pygame.mouse.get_pos()
+        if play_button_rect.collidepoint(mouse_pos):
+            game_on = True
+            landscape = pygame.image.load('graphics/landscape.jpg')
+            screen.blit(landscape, (0, 0))
+            text_surface = test_font.render('Marco vs Covid', False, 'Red')
+            level = 1
+            score = 0
+            marco_rect.x = 0
+            marco_surface = pygame.image.load('graphics/marco.png')
+            marco_gravity = 0
