@@ -99,9 +99,16 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 marco_gravity = -14
-
+                if event.type == pygame. KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                marco_rect.x -= 20
+        if event.type == pygame. KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                marco_rect.x += 20
         if event.type == pygame.KEYUP:
             print('key up')
+
+        
 
     # Initializes the variable for the level label
     level_label = test_font.render(f"Level: {level}", False, 'Black')
