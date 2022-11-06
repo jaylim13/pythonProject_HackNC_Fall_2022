@@ -7,6 +7,7 @@ score: int = 0
 masks_collected = 0
 OBSTACLE_START = 833
 new_level = False
+clicker_count = 0
 
 # Creates screen for the game to be played
 pygame.init()
@@ -86,6 +87,15 @@ def difficulty():
     new_level = False
 
 
+# def moving_legs
+def moving_legs():
+    global marco_surface
+    if clicker_count % 2 == 1:
+        marco_surface = pygame.image.load('graphics/walk1.png')
+    else:
+        marco_surface = pygame.image.load('graphics/marco.png')
+
+
 # Loop to run the game
 while True:
     for event in pygame.event.get():
@@ -96,15 +106,23 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if marco_rect.collidepoint(event.pos):
                 marco_gravity = -14
+                clicker_count += 1
+                moving_legs()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 marco_gravity = -14
+                clicker_count += 1
+                moving_legs()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 marco_rect.x -= 20
+                clicker_count += 1
+                moving_legs()
         if event.type == pygame. KEYDOWN:
             if event.key == pygame.K_RIGHT:
                 marco_rect.x += 20
+                clicker_count += 1
+                moving_legs()
         if event.type == pygame.KEYUP:
             print('key up')
 
@@ -118,8 +136,6 @@ while True:
     screen.blit(score_label, (670, 190))
     # Moves virus
     difficulty()
-    # Moves Marco
-    #marco_rect.x += 2
     # Updates the level display
     level = update_level(level)
     level_label = test_font.render(f"Level: {level}", False, 'Black')
@@ -141,6 +157,8 @@ while True:
 
     if marco_rect.colliderect(virus_rect) or marco_rect.colliderect(virus2_rect) or marco_rect.colliderect(virus3_rect):
         print('Marco -1')
+        marco_surface = pygame.image.load('graphics/dead_marco.png')
+        marco_gravity -= 20
     else:
         print('Safe')
 
