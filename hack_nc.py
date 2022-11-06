@@ -33,6 +33,12 @@ virus2_x_pos = 833
 virus3_surface = pygame.image.load('graphics/virus3.png')
 virus3_rect = virus3_surface.get_rect(midbottom = (800, 200))
 virus3_x_pos = 833
+vaccine = pygame.image.load('graphics/vaccine.png')
+vaccine_rect = virus3_surface.get_rect(midbottom = (800, 200))
+vaccine_x_pos = 833
+mask = pygame.image.load('graphics/mask.png')
+mask_rect = virus3_surface.get_rect(midbottom = (800, 200))
+mask_x_pos = 833
 
 # Initializes the variable for the avatar, Marco
 marco_surface = pygame.image.load('graphics/marco.png')
@@ -81,15 +87,25 @@ def difficulty():
     global virus_rect
     global virus2_rect
     global virus3_rect
+    global mask
+    global vaccine
     if level > 0:
         virus_rect.x = obstacle_movement(virus_surface, virus_rect.x, -3)
         screen.blit(virus_surface, virus_rect)
+        mask_rect.x = obstacle_movement(mask, mask_rect.x, -2)
+        screen.blit(mask, mask_rect)
     if level > 1:
         virus2_rect.x = obstacle_movement(virus2_surface, virus2_rect.x, -4)
         screen.blit(virus2_surface, virus2_rect)
+        mask_rect.x = obstacle_movement(mask, mask_rect.x, -2)
+        screen.blit(mask, mask_rect)
     if level > 2:
         virus3_rect.x = obstacle_movement(virus3_surface, virus3_rect.x, -5)
         screen.blit(virus3_surface, virus3_rect)
+        mask_rect.x = obstacle_movement(mask, mask_rect.x, -2)
+        screen.blit(mask, mask_rect)
+        vaccine_rect.x = obstacle_movement(vaccine, vaccine_rect.x, -2)
+        screen.blit(vaccine, vaccine_rect)
     new_level = False
 
 
@@ -158,12 +174,6 @@ while True:
     marco_rect.y += marco_gravity
     if marco_rect.bottom >= 200:
         marco_rect.bottom = 200
-      
-    if marco_rect.left <= 0:
-        marco_rect.left = 5
-
-    if marco_rect.top <= 50:
-        marco_rect.top = 50
 
     screen.blit(marco_surface, marco_rect)
     screen.blit(virus_surface, virus_rect)
@@ -174,6 +184,10 @@ while True:
         marco_surface = pygame.image.load('graphics/dead_marco.png')
         marco_gravity += 20
         game_on = False
+
+    if marco_rect.colliderect(vaccine_rect) or marco_rect.colliderect(mask_rect):
+        score += 1 
+        score -= 16 
     else:
         print('Safe')
 
@@ -200,3 +214,4 @@ while True:
             marco_rect.x = 0
             marco_surface = pygame.image.load('graphics/marco.png')
             marco_gravity = 0
+
