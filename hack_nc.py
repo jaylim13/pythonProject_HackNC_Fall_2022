@@ -174,13 +174,6 @@ while True:
     marco_rect.y += marco_gravity
     if marco_rect.bottom >= 200:
         marco_rect.bottom = 200
-            
-    if marco_rect.left <= 0:
-        marco_rect.left = 5
-
-    if marco_rect.top <= 50:
-        marco_rect.top = 50
-        
 
     screen.blit(marco_surface, marco_rect)
     screen.blit(virus_surface, virus_rect)
@@ -225,4 +218,3 @@ while True:
             virus3_rect = virus3_surface.get_rect(midbottom=(860, 200))
             vaccine_rect = virus3_surface.get_rect(midbottom=(860, 200))
             mask_rect = virus3_surface.get_rect(midbottom=(860, 200))
-            
