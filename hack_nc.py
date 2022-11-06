@@ -23,13 +23,13 @@ text_surface = test_font.render('Marco vs Covid', False, 'Red')
 
 # Initializes the variable for COVID-19
 virus_surface = pygame.image.load('graphics/virus.png')
-virus_rect = virus_surface.get_rect(midbottom = (15, 200))
+virus_rect = virus_surface.get_rect(midbottom = (800, 200))
 virus_x_pos = 833
 virus2_surface = pygame.image.load('graphics/virus2.png')
-virus2_rect = virus2_surface.get_rect(midbottom = (15, 200))
+virus2_rect = virus2_surface.get_rect(midbottom = (800, 200))
 virus2_x_pos = 833
 virus3_surface = pygame.image.load('graphics/virus3.png')
-virus3_rect = virus3_surface.get_rect(midbottom = (15, 200))
+virus3_rect = virus3_surface.get_rect(midbottom = (800, 200))
 virus3_x_pos = 833
 
 # Initializes the variable for the avatar, Marco
@@ -63,7 +63,7 @@ def obstacle_movement(obstacle, x_pos: int, movement_speed) -> int:
     x_pos += movement_speed
     if new_level:
         x_pos = 833
-    elif x_pos < 1 and not new_level:
+    elif x_pos < 3:
         x_pos = -100
     return x_pos
 
@@ -158,7 +158,7 @@ while True:
     if marco_rect.colliderect(virus_rect) or marco_rect.colliderect(virus2_rect) or marco_rect.colliderect(virus3_rect):
         print('Marco -1')
         marco_surface = pygame.image.load('graphics/dead_marco.png')
-        marco_gravity -= 20
+        marco_gravity += 20
     else:
         print('Safe')
 
