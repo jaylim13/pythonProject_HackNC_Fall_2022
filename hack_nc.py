@@ -175,6 +175,12 @@ while True:
     if marco_rect.bottom >= 200:
         marco_rect.bottom = 200
 
+    if marco_rect.x < 15:
+        marco_rect.x = 15
+
+    if marco_rect.y < 5:
+        marco_rect.y = 5
+
     screen.blit(marco_surface, marco_rect)
     screen.blit(virus_surface, virus_rect)
     screen.blit(play_button, play_button_rect)
