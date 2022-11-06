@@ -13,7 +13,7 @@ landscape = pygame.image.load('graphics/landscape.jpg')
 text_surface = test_font.render('Marco vs Covid', False, 'Red')
 
 # Initializes the variable for COVID-19
-virus_surface = pygame.image.load('graphics/virus.png')
+virus_surface = pygame.image.load('graphics/CC_virus.png')
 virus_x_pos = 833
 
 # Initializes the variable for the avatar, Marco
@@ -38,8 +38,10 @@ while True:
     #TODO
     if marco_x_pos < 10:
         marco_x_pos = 10
-    if marco_x_pos > 208:
-        marco_x_pos = 208
+    if marco_x_pos > 800:
+        marco_x_pos = 10
+    marco_x_pos += 2
+    if marco_x_pos < 10: marco_x_pos = 10
     screen.blit(marco_surface, (marco_x_pos, marco_y_pos))
 
     pygame.display.update()
