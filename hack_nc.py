@@ -25,19 +25,19 @@ text_surface = test_font.render('Marco vs Covid', False, 'Red')
 
 # Initializes the variable for COVID-19
 virus_surface = pygame.image.load('graphics/virus.png')
-virus_rect = virus_surface.get_rect(midbottom = (800, 200))
+virus_rect = virus_surface.get_rect(midbottom = (860, 200))
 virus_x_pos = 833
 virus2_surface = pygame.image.load('graphics/virus2.png')
-virus2_rect = virus2_surface.get_rect(midbottom = (800, 200))
+virus2_rect = virus2_surface.get_rect(midbottom = (860, 200))
 virus2_x_pos = 833
 virus3_surface = pygame.image.load('graphics/virus3.png')
-virus3_rect = virus3_surface.get_rect(midbottom = (800, 200))
+virus3_rect = virus3_surface.get_rect(midbottom = (860, 200))
 virus3_x_pos = 833
 vaccine = pygame.image.load('graphics/vaccine.png')
-vaccine_rect = virus3_surface.get_rect(midbottom = (800, 200))
+vaccine_rect = virus3_surface.get_rect(midbottom = (860, 200))
 vaccine_x_pos = 833
 mask = pygame.image.load('graphics/mask.png')
-mask_rect = virus3_surface.get_rect(midbottom = (800, 200))
+mask_rect = virus3_surface.get_rect(midbottom = (860, 200))
 mask_x_pos = 833
 
 # Initializes the variable for the avatar, Marco
@@ -186,7 +186,7 @@ while True:
         game_on = False
 
     if marco_rect.colliderect(vaccine_rect) or marco_rect.colliderect(mask_rect):
-        score += 1 
+        score += 1
     else:
         print('Safe')
 
@@ -213,4 +213,9 @@ while True:
             marco_rect.x = 0
             marco_surface = pygame.image.load('graphics/marco.png')
             marco_gravity = 0
-
+            virus_rect = virus_surface.get_rect(midbottom=(860, 200))
+            virus2_rect = virus2_surface.get_rect(midbottom=(860, 200))
+            virus3_rect = virus3_surface.get_rect(midbottom=(860, 200))
+            vaccine_rect = virus3_surface.get_rect(midbottom=(860, 200))
+            mask_rect = virus3_surface.get_rect(midbottom=(860, 200))
+            
