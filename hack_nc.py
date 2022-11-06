@@ -97,9 +97,9 @@ while True:
             if marco_rect.collidepoint(event.pos):
                 marco_gravity = -14
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_UP:
                 marco_gravity = -14
-                if event.type == pygame. KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 marco_rect.x -= 20
         if event.type == pygame. KEYDOWN:
@@ -107,8 +107,6 @@ while True:
                 marco_rect.x += 20
         if event.type == pygame.KEYUP:
             print('key up')
-
-        
 
     # Initializes the variable for the level label
     level_label = test_font.render(f"Level: {level}", False, 'Black')
@@ -121,7 +119,7 @@ while True:
     # Moves virus
     difficulty()
     # Moves Marco
-    marco_rect.x += 2
+    #marco_rect.x += 2
     # Updates the level display
     level = update_level(level)
     level_label = test_font.render(f"Level: {level}", False, 'Black')
