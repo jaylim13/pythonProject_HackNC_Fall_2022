@@ -187,7 +187,6 @@ while True:
 
     if marco_rect.colliderect(vaccine_rect) or marco_rect.colliderect(mask_rect):
         score += 1 
-        score -= 16 
     else:
         print('Safe')
 
